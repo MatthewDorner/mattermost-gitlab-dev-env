@@ -13,4 +13,4 @@ I set this up to use a real public IP, DNS and SSL. You could modify it if you w
 ## Use ##
 Just run Mattermost dev server normally on `:8065` and run `docker-compose up` in this repo to launch Nginx and GitLab.
 
-The GitLab instance will a password for the `root` user at `./gitlab/config/initial_root_password` the first time you run it.
+The GitLab instance will create a password for the `root` user at `./gitlab/config/initial_root_password` the first time you run it.
