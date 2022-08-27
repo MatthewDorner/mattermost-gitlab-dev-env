@@ -1,0 +1,35 @@
+version: '1.0'
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    container_name: 'gitlab'
+    hostname: 'gitlab.example.com'
+    ports:
+      - '81:80'
+      - '444:443'
+      - '23:22'
+    volumes:
+      - './gitlab/config:/etc/gitlab'
+      - './gitlab/logs:/var/log/gitlab'
+      - './gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+    networks:
+      - gitlab
+
+  proxy:
+    build: ./proxy/
+    container_name: 'proxy'
+    hostname: 'proxy'
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    networks:
+      - gitlab
+    ports:
+      - 80:80
+      - 443:443
+
+networks:
+  gitlab:
+    external: true
